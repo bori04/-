@@ -17,68 +17,113 @@
         * {
             font-family: 'Nanum Myeongjo', serif;
         }
-
+ 
         .mytitle {
             text-align: center;
-            margin: 20px auto 0px auto;
+            margin: 0 auto 0px auto;
             padding: 30px 0px 0px 0px;
             font-weight: 700;
+            background-color: beige;
+            padding-bottom: 20px;
+            border-radius: 10px;
         }
 
-        .myimage {
-            margin: 20px auto 0px auto;
+        #myimage {
+            margin: 40px auto 0px auto;
             width: 300px;
             height: 250px;
             display: block;
             border-radius: 10px;
             opacity: 0.5;
         }
-
         #btnOne {
-            margin: 20px auto 0px auto;
-            display: block;
+            margin-right: 15px;
             border-radius: 5px;
             border-color: transparent;
             background-color: grey;
             color: white;
         }
-
         #btnTwo {
-            margin: 20px auto 0px auto;
-            display: block;
+            margin-left: 20px;
             border-radius: 5px;
             border-color: transparent;
             background-color: grey;
             color: white;
         }
-
+        #btnThree {
+            margin: 20px auto 0px auto;
+            border-radius: 5px;
+            border-color: transparent;
+            background-color: red;
+            color: white;
+        }
         #listAll {
             margin: 0px 0px 30px 20px;
         }
-
         #subTitle {
             margin: 30px 0px 30px 20px;
             font-weight: 700;
         }
+        #btns{
+            text-align: center;
+            padding-bottom: 20px;
+            background-color: beige;
+            border-radius: 10px;
+        }
+        #sum{
+            background-color: beige;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        
+
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}
+    40% {-webkit-transform: translateY(-30px) }
+    60% {-webkit-transform: translateY(-20px);}
+} 
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-30px);}
+    60% {transform: translateY(-20px);}
+} 
+
+
+.bounce {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: bounce;
+    animation-name: bounce;
+}
+
+
+
     </style>
 </head>
 
 <body>
     <div>
-        <h1 class="mytitle">주사위 게임</h1>
-        <p><img class="myimage"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Backgammon_PrecisionDice.jpg/375px-Backgammon_PrecisionDice.jpg">
+        <h1 class="mytitle">DICE GAME</h1>
+        <p><img id="myimage"
+                src="https://i1.sndcdn.com/artworks-DU13kwd4X2yPk3j4-YhD6yg-t500x500.jpg">
         </p>
-        <button id="btnOne">주사위 굴리기</button>
-
-        <h5 id="subTitle">결과값 리스트</h5>
+        <div id="btns">
+        <button id="btnOne">Throw</button>
+        <button id="btnThree" type="button"
+        onClick="refreshPage()">Reset</button>
+        </div>
+        <h5 id="subTitle">Results</h5>
         <div id="listAll">
             <p id="list"></p>
         </div>
-        <button id="btnTwo" onclick="doSum()">결과 합 구하기</button>
+        <div id="sum">
+        <button id="btnTwo" onclick="doSum()">Add</button>
         <p>
-        <h5 id="subTitle"> 합계: <input type="text" name="sum" value="" /> </h5>
+        <h5 id="subTitle"> Sum: <input type="text" name="sum" value="" /> </h5>
         </p>
+    </div>  
     </div>
     <script type="text/javascript">
 
@@ -88,7 +133,9 @@
             return num;
         }
 
-
+        function refreshPage() {
+            window.location.reload();
+        }
         // 버튼 클릭시 결과 출력
         const btnOne = document.querySelector("#btnOne");
         btnOne.addEventListener('click', resultChoice);
@@ -105,11 +152,26 @@
                 return sum + currValue;
             }, 0);
             $("input[name=sum]").val(result);
-            alert('결과 합을 계산합니다.')
+            alert('합계를 계산합니다.')
         };
 
 
-
+        
+element = document.getElementById("myimage");
+elementTwo = document.getElementById("btnOne");
+elementTwo.addEventListener("click", function(e) {
+  e.preventDefault;
+  
+  // -> removing the class
+  element.classList.remove("bounce");
+  
+  // -> triggering reflow /* The actual magic */
+  // without this it wouldn't work. Try uncommenting the line and the transition won't be retriggered.
+  element.offsetWidth = element.offsetWidth;
+  
+  // -> and re-adding the class
+  element.classList.add("bounce");
+}, false);
 
     </script>
 </body>
